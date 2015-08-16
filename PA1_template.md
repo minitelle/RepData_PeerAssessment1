@@ -15,8 +15,10 @@ echo = TRUE  # Project Requirement to make code visible
 
 ```r
 require("ggplot2")
-library("scales")
+require("scales")
 require("gridExtra")
+require("chron")
+require("lattice")
 ```
 
 ##### Confirm if the activity.csv file is in our working directory. If not download and unzip it.
@@ -162,14 +164,8 @@ head(noNA)
 ```
 
 ```r
-mean(noNA$steps, na.rm=TRUE)
-```
+#mean(noNA$steps, na.rm=TRUE)
 
-```
-## [1] 37.3826
-```
-
-```r
 noNA_totalSteps <- tapply(noNA$steps, noNA$date, FUN=sum, na.rm=TRUE)
 ```
 
@@ -231,7 +227,7 @@ setNames(data.frame(steps_median, noNA_median), c("median - with NAs","median wi
 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 ```r
-noNA$WeekDay <- ifelse(weekdays(noNA$date) == T,"Weekend", "Week day")
+noNA$WeekDay <- ifelse(is.weekend(noNA$date) == T,"Weekend", "Week day")
 head(noNA)
 ```
 
@@ -247,4 +243,13 @@ head(noNA)
 
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was creating using simulated data:
 
+```r
+avgWEIntervals <- aggregate(x=list(steps=noNA$steps), by=list(interval=as.numeric(noNA$interval), Weekdays = noNA$WeekDay),FUN = mean, na.rm = TRUE)
+# The plot
+xyplot(steps ~ interval | factor(Weekdays), data = avgWEIntervals, type = "l", 
+       main="Average number of Steps taken on weekends vs. week days", 
+       xlab="5-min Intervals",  ylab="Total number of steps",layout=c(1,2))
+```
+
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png) 
 
