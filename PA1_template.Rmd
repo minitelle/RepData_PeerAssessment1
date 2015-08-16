@@ -98,8 +98,11 @@ sum(is.na(data))
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median 
 for that day, or the mean for that 5-minute interval, etc.
-* >> Strategy is to use the mean for each 5min interval to replace the NAs
+
+> The adopted strategy is to use the mean for each 5min interval to replace the NAs as it makes the most sense.
+
 ```{r}
+# Based on our choice, use the mean for each 5-minute interval to replace the NAs
 noNA <- data 
 for (i in 1:nrow(noNA)) {
     if (is.na(noNA$steps[i])) {
