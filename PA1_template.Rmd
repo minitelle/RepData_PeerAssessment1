@@ -84,6 +84,8 @@ ggplot(data=avgIntervals, aes(x=interval, y=steps)) +
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 ```{r}
 mostInterval <- avgIntervals[which.max(avgIntervals$steps), ]
+print(paste0("The interval with the max number of steps " , mostInterval$steps , " is " , mostInterval$interval))
+# again in case it's missed
 print(mostInterval$interval)
 ```
 

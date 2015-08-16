@@ -300,6 +300,13 @@ ggplot(data=avgIntervals, aes(x=interval, y=steps)) +
 </ol>
 
 <pre><code class="r">mostInterval &lt;- avgIntervals[which.max(avgIntervals$steps), ]
+print(paste0(&quot;The interval with the max number of steps &quot; , mostInterval$steps , &quot; is &quot; , mostInterval$interval))
+</code></pre>
+
+<pre><code>## [1] &quot;The interval with the max number of steps 206.169811320755 is 835&quot;
+</code></pre>
+
+<pre><code class="r"># again in case it&#39;s missed
 print(mostInterval$interval)
 </code></pre>
 
